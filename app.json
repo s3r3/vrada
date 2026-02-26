@@ -3,6 +3,7 @@
     "name": "vrada",
     "slug": "vrada",
     "version": "1.0.0",
+    "scheme": "vrada",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

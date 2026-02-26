@@ -6,13 +6,21 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
-  SafeAreaView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { Feather, Ionicons } from "@expo/vector-icons";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../App";
 
 const { width } = Dimensions.get("window");
 const COLUMN_WIDTH = (width - 48) / 2;
+
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "WomensSet"
+>;
 
 interface Product {
   id: string;
@@ -56,25 +64,11 @@ const PRODUCTS: Product[] = [
     isNew: false,
     isFavorite: false,
   },
-  {
-    id: "5",
-    name: "Sowee dark set",
-    price: "$950",
-    image: require("../../assets/image/wo5.png"),
-    isNew: true,
-    isFavorite: true,
-  },
-  {
-    id: "6",
-    name: "Roufe white rose set",
-    price: "$2200",
-    image: require("../../assets/image/wo6.png"),
-    isNew: false,
-    isFavorite: false,
-  },
 ];
 
 const WomensSetScreen: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
+
   const renderProduct = ({ item }: { item: Product }) => (
     <View style={{ width: COLUMN_WIDTH }} className="mb-6 mx-2">
       <View className="bg-[#F2F2F2] rounded-3xl overflow-hidden relative h-55 items-center justify-center shadow-sm">
@@ -116,11 +110,16 @@ const WomensSetScreen: React.FC = () => {
       <StatusBar style="dark" />
 
       <SafeAreaView className="flex-1">
+        {/* HEADER */}
         <View className="px-6 py-4 flex-row justify-between items-center">
-          <TouchableOpacity className="flex-row items-center">
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            className="flex-row items-center"
+          >
             <Feather name="chevron-left" size={28} color="black" />
             <Text className="text-black text-lg font-medium ml-1">Back</Text>
           </TouchableOpacity>
+
           <View className="flex-row gap-x-5">
             <TouchableOpacity>
               <Feather name="heart" size={24} color="black" />
@@ -131,11 +130,17 @@ const WomensSetScreen: React.FC = () => {
           </View>
         </View>
 
+        {/* TITLE */}
         <View className="px-6 mt-4 mb-6">
-          <Text className="text-[36px] font-bold text-[#333]">Women's Set</Text>
-          <Text className="text-gray-400 text-[16px]">120 items found</Text>
+          <Text className="text-[36px] font-bold text-[#333]">
+            Women's Set
+          </Text>
+          <Text className="text-gray-400 text-[16px]">
+            {PRODUCTS.length} items found
+          </Text>
         </View>
 
+        {/* LIST */}
         <FlatList
           data={PRODUCTS}
           renderItem={renderProduct}
@@ -145,22 +150,6 @@ const WomensSetScreen: React.FC = () => {
           showsVerticalScrollIndicator={false}
         />
       </SafeAreaView>
-
-      <View className="absolute bottom-0 w-full bg-white flex-row justify-around py-5 border-t border-gray-100 shadow-lg">
-        <TouchableOpacity className="items-center">
-          <Feather name="shopping-bag" size={26} color="black" />
-          <Text className="text-[10px] mt-1 font-bold">Shop</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Feather name="search" size={26} color="#ccc" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Feather name="bell" size={26} color="#ccc" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Feather name="user" size={26} color="#ccc" />
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
