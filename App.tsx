@@ -24,33 +24,45 @@ import FilterScreen from "./src/screens/fiterScreen";
 import WishlistScreen from "./src/screens/wishlistScreen";
 import Wlscreen from "./src/screens/wlscreen";
 import CartScreen from "./src/screens/CartScreen";
+import CheckoutShippingScreen from "./src/screens/checkout/CheckoutShippingScreen";
+import PaymentMethodScreen from "./src/screens/checkout/PaymentMethodScreen";
+import SuccessOrderScreen from "./src/screens/checkout/SuccessOrderScreen";
+import ReviewsScreen from "./src/screens/ReviewsScreen";
+import ProfileScreen from "./src/screens/profileScreen";
+
+// previous app entry implementations are kept for reference but commented out
+// in case you want to revert or switch to a minimal example later.
 
 export type RootStackParamList = {
+  Landing: undefined;
   VisualSearch: undefined;
   WomensSet: undefined;
+  // add additional routes as you register them
+  Home: undefined;
+  FeatureList: undefined;
+  // ...more screens as required
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 // export default function App() {
 //   return (
-//     <SafeAreaProvider>
-//       <NavigationContainer>
-//         <Stack.Navigator screenOptions={{ headerShown: false }}>
-//           <Stack.Screen name="VisualSearch" component={VisualSearchScreen} />
-//           <Stack.Screen name="WomensSet" component={WomensSetScreen} />
-//         </Stack.Navigator>
-//       </NavigationContainer>
-//     </SafeAreaProvider>
+//     <NavigationContainer>
+//       <Stack.Navigator screenOptions={{ headerShown: false }}>
+//         <Stack.Screen name="Landing" component={LandingPage} />
+//         <RegisterScreenStack.Screen name="Home" component={HomeScreen} />
+//         <Stack.Screen name="FeatureList" component={FeatureList} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
 //   );
 // }
 
 export default function App() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <CartScreen />
-      </SafeAreaView>
+      <View className="flex-1">
+        <LoginScreen/>
+      </View>
     </SafeAreaProvider>
   );
 }
